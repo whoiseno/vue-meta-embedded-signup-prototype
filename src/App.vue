@@ -21,7 +21,7 @@ import FacebookIcon from './components/FacebookIcon.vue'
       >
         <button
           type="button"
-          class="focus-visible:border-blue-500 focus-visible:ring-blue-500/50 rounded-md border border-transparent bg-clip-padding text-base font-medium focus-visible:ring-3 [&_svg:not([class*='size-'])]:size-4 inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none shrink-0 [&_svg]:shrink-0 outline-none select-none bg-neutral-200 text-neutral-900 hover:bg-neutral-200/80"
+          class="focus-visible:border-blue-500 focus-visible:ring-blue-500/50 rounded-md border border-transparent bg-clip-padding text-base font-medium focus-visible:ring-3 [&_svg:not([class*='size-'])]:size-4 inline-flex items-center justify-center whitespace-nowrap transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none shrink-0 [&_svg]:shrink-0 outline-none select-none bg-neutral-200 text-neutral-900 hover:bg-neutral-200/80 h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-3 has-data-[icon=inline-start]:pl-3"
         >
           <FacebookIcon /> in with Facebook
         </button>
