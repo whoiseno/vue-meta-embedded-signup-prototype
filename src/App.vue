@@ -3,7 +3,7 @@ import FacebookIcon from './components/FacebookIcon.vue'
 </script>
 
 <template>
-  <main class="max-w-5xl mx-auto px-4 py-12 space-y-8">
+  <main class="max-w-5xl mx-auto px-4 py-12 space-y-24">
     <section>
       <hgroup class="text-center">
         <h1 class="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">
