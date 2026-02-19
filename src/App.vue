@@ -17,7 +17,7 @@ import FacebookIcon from './components/FacebookIcon.vue'
     </section>
     <section>
       <div
-        class="bg-neutral-50 border border-neutral-200 rounded-sm flex items-center justify-center p-12"
+        class="bg-neutral-50 border border-neutral-200 rounded-sm flex items-center justify-center px-12 py-24"
       >
         <button
           type="button"
