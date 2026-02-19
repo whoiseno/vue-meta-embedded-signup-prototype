@@ -37,3 +37,7 @@ __screenshots__/
 
 # Vite
 *.timestamp-*-*.mjs
+
+.env
+pnpm-lock.yaml
+pnpm-workspace.yaml

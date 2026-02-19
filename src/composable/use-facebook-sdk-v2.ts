@@ -109,7 +109,7 @@ const INIT_TIMEOUT_MS = 10_000
 export function useFacebookSDK(options: FacebookSDKOptions = {}): UseFacebookSDKReturn {
   const {
     appId = '' as string | undefined,
-    version = 'v21.0',
+    version = 'v25.0',
     xfbml = false,
     cookie = false,
     debug = import.meta.env.DEV,
@@ -159,7 +159,7 @@ export function useFacebookSDK(options: FacebookSDKOptions = {}): UseFacebookSDK
         reject(
           new Error(
             '[useFacebookSDK] No App ID provided. ' +
-              'Pass `appId` to useFacebookSDK() or set VITE_META_APP_ID in your .env file.',
+            'Pass `appId` to useFacebookSDK() or set VITE_META_APP_ID in your .env file.',
           ),
         )
         return
@@ -181,7 +181,7 @@ export function useFacebookSDK(options: FacebookSDKOptions = {}): UseFacebookSDK
           reject(
             new Error(
               '[useFacebookSDK] Timed out waiting for fbAsyncInit. ' +
-                'Check that connect.facebook.net is not blocked.',
+              'Check that connect.facebook.net is not blocked.',
             ),
           )
         }
@@ -275,11 +275,11 @@ export function useFacebookSDK(options: FacebookSDKOptions = {}): UseFacebookSDK
     _error.value = null
     _loadPromise = null
 
-    // Clear globals by casting to any to avoid type conflicts
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ;(window as any).FB = undefined
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ;(window as any).fbAsyncInit = undefined
+      // Clear globals by casting to any to avoid type conflicts
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ; (window as any).FB = undefined
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ; (window as any).fbAsyncInit = undefined
 
     if (import.meta.env.DEV) {
       console.info('[useFacebookSDK] SDK state reset.')
