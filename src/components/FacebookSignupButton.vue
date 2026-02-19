@@ -1,11 +1,131 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { onMounted } from 'vue'
+
+declare global {
+  interface Window {
+    fbAsyncInit: () => void
+    FB: {
+      init: (config: { appId: string; cookie: boolean; xfbml: boolean; version: string }) => void
+      login(
+        callback: (response: {
+          authResponse: {
+            code?: string
+            accessToken?: string
+            userID: string
+            expiresIn: number
+            signedRequest: string
+            data_access_expiration_time?: number
+          } | null
+          status: 'connected' | 'not_authorized' | 'unknown'
+        }) => void,
+        options?: {
+          config_id?: string
+          response_type?: 'code' | 'token'
+          override_default_response_type?: boolean
+          scope?: string
+          extras?: Record<string, unknown>
+        },
+      ): void
+    }
+  }
+}
+
+const injectScript = (): Promise<void> => {
+  if (document.getElementById('facebook-jssdk')) {
+    return Promise.resolve()
+  }
+
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script')
+    script.id = 'facebook-jssdk'
+    script.src = `https://connect.facebook.net/en_US/sdk.js`
+    script.onload = () => resolve()
+    script.onerror = () => reject(new Error('Failed to load Facebook SDK'))
+    const previousScript = document.getElementsByTagName('script')[0]
+    if (previousScript && previousScript.parentNode) {
+      previousScript.parentNode.insertBefore(script, previousScript)
+    } else {
+      document.head.appendChild(script)
+    }
+  })
+}
+
+const initFacebookSDK = (): Promise<void> => {
+  return new Promise((resolve) => {
+    window.fbAsyncInit = function () {
+      window.FB.init({
+        appId: import.meta.env.VITE_FACEBOOK_APP_ID,
+        cookie: true,
+        xfbml: true,
+        version: import.meta.env.VITE_FACEBOOK_GRAPH_API_VERSION || 'v25.0',
+      })
+      resolve()
+    }
+  })
+}
+
+async function useFacecookSDK() {
+  try {
+    if (!import.meta.env.VITE_FACEBOOK_APP_ID) {
+      throw new Error('Facebook App ID is not configured.')
+    }
+    // load the facebook sdk
+    await injectScript()
+    // initialize the facebook sdk
+    await initFacebookSDK()
+
+    window.addEventListener('message', (event) => {
+      if (!event.origin.endsWith('facebook.com')) return
+      try {
+        const data = JSON.parse(event.data)
+        if (data.type === 'WA_EMBEDDED_SIGNUP') {
+          console.log('message event: ', data) // remove after testing
+          // your code goes here
+        }
+      } catch {
+        console.log('message event: ', event.data) // remove after testing
+        // your code goes here
+      }
+    })
+  } catch (error) {
+    console.error('Error during Facebook signup:', error)
+  }
+}
+
+onMounted(async () => {
+  await useFacecookSDK()
+})
+
+const handleFacebookSignUp = () => {
+  if (!window.FB) {
+    console.error('Facebook SDK not initialized.')
+    return
+  }
+
+  window.FB.login(
+    (response) => {
+      if (response.status === 'connected') {
+        console.log('User logged in and authenticated:', response.authResponse)
+        // Handle successful login here (e.g., send data to your server)
+      } else {
+        console.warn('User cancelled login or did not fully authorize.')
+      }
+    },
+    {
+      config_id: import.meta.env.VITE_FACEBOOK_CONFIG_ID,
+      response_type: 'code',
+      override_default_response_type: true,
+    },
+  )
+}
+</script>
 
 <template>
   <div>
     <button
       type="button"
       class="text-neutral-950 bg-neutral-100 hover:bg-neutral-200/90 focus:ring-4 focus:outline-none focus:ring-neutral-100/50 box-border border border-transparent font-medium leading-5 px-4 py-2.5 text-center inline-flex items-center justify-center rounded-md text-base"
-      @click="console.log('I have been clicked')"
+      @click="handleFacebookSignUp"
     >
       <svg viewBox="0 0 666.667 666.667" class="size-6 me-2">
         <defs>
