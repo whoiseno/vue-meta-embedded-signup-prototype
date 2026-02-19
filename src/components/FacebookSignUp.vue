@@ -55,7 +55,7 @@ let _sessionData: Pick<EmbeddedSignupMessageData['data'], 'phone_number_id' | 'w
 
 function _onMessage(event: MessageEvent): void {
   // if (event.origin !== 'https://www.facebook.com') return
-
+  console.log('Received message event:', event)
   try {
     const payload: EmbeddedSignupMessageData =
       typeof event.data === 'string' ? JSON.parse(event.data) : event.data
@@ -79,7 +79,7 @@ function _onMessage(event: MessageEvent): void {
 
 function launchSignup(): void {
   if (!FB.value || !isReady.value) return
-
+  console.log('Launching Facebook Embedded SignUp flow with config ID:', props.configId)
   _sessionData = {}
   window.addEventListener('message', _onMessage)
 
