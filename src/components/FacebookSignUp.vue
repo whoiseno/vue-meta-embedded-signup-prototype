@@ -54,7 +54,7 @@ interface EmbeddedSignupMessageData {
 let _sessionData: Pick<EmbeddedSignupMessageData['data'], 'phone_number_id' | 'waba_id'> = {}
 
 function _onMessage(event: MessageEvent): void {
-  if (event.origin !== 'https://www.facebook.com') return
+  // if (event.origin !== 'https://www.facebook.com') return
 
   try {
     const payload: EmbeddedSignupMessageData =
