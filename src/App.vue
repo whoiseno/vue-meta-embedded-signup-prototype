@@ -30,6 +30,26 @@ const configId = ref<string | undefined>(import.meta.env.VITE_META_CONFIG_ID)
         />
       </div>
     </section>
+    <section>
+      <h2 class="scroll-m-20 pb-2 text-2xl font-semibold tracking-tight first:mt-0">Notes</h2>
+      <ul class="list-disc list-inside space-y-2 text-neutral-400">
+        <li>
+          The <code>configId</code> is read from an environment variable for flexibility. Make sure
+          to set <code>VITE_META_CONFIG_ID</code> in your <code>.env</code> file with your actual
+          Meta configuration ID.
+        </li>
+        <li>
+          The component emits three events: <code>success</code>, <code>error</code>, and{' '}
+          <code>cancel</code>. You can listen to these events to handle the respective outcomes of
+          the signup process.
+        </li>
+        <li>
+          Ensure that you have the Facebook SDK properly loaded and initialized in your project for
+          the component to function correctly. The SDK should be included in your HTML or loaded
+          asynchronously as needed.
+        </li>
+      </ul>
+    </section>
   </main>
 </template>
 
